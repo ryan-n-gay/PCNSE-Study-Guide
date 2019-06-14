@@ -10,14 +10,14 @@
 
 ### Resources
 
-Web-search for "Palo Alto Network PCNSE 8 Study Guide"
-LMS: http://education.paloaltonetworks.com/learningcenter
-Education Course:
-  EDU-110/210: Essentials
-  EDU-120/220: Managing Multiple Firewalls
-  EDU-330: Troubleshooting
-Practice Exams, learning assessments, and ACE certification
-Practice Lab
+- Web-search for "Palo Alto Network PCNSE 8 Study Guide"
+- LMS: http://education.paloaltonetworks.com/learningcenter
+- Education Course:
+  - EDU-110/210: Essentials
+  - EDU-120/220: Managing Multiple Firewalls
+  - EDU-330: Troubleshooting
+- Practice Exams, learning assessments, and ACE certification
+- Practice Lab
 
 ### Suggestions
 
@@ -169,6 +169,159 @@ Practice Lab
 	- Use Application Command Center, or ACC, to view trends in network activity
 	- Define actions to take for optimizing Security Profiles
 	- Describe the benefits and differences between the Heatmap and BPA reports
+
+### Firewall 9.0: Security Operating Platform and Architecture
+
+#### Training Objectives
+
+- Describe the characteristics of the Security Operating Platform
+- Describe the differences between single-pass architecture and parallel processing
+- Describe the Zero Trust security model and how it relates to traffic moving through your network
+
+#### Security Platform Overview
+
+- Cyber Attack Lifecycle
+	- The Cyber-Attack Lifecycle is a sequence of events that an attacker goes through to infiltrate a network and exfiltrate data from it.
+	- Lifecycle
+		
+		| Stage | Description |
+		| :------------- | :------------- |
+		| Reconnaissance | Attackers carefully research, Identify, and select targets, often using phishing tactics or extracting public information from LinkedIn profiles, or from corprate websites. These criminals can also scan for network vulnerabilies and services or applications that they can exploit     |
+		| Weaponization | The attacker determins which methods to use in order to deliver malisious payloads. | 
+		| Delivery | They may choose to embed intruter code within seemingly innocouos files. Or, attackers may craft deliverables to attract the specific intrests of an individual. |
+		| Exploitation | An attacker now deploys an exploit against a vunerable application or system. Deploying an exploit allows the attack to gain initial entry point into the organization. |
+		| Installation | Attacker wi ll seek to establish privileged, operations, such as maintaining access, persistance, and escalating priviledges. |
+		| Command and Control | Attackers establish a command channel back through the internet to a specific server so that they can communicate and pass data back and forth between infected devices and their own infrastructure |
+		| Act on the Object | Now that an attacker has communiucation, they will act upon motivations to achieve their goal. Their motivation could be data exfiltration, destruction of critical infrastructure, to defgace web property, or to create fear or the means for extortion. |
+		
+- Palo Alto Networks Security
+	- Prevention-Focused
+		- React-only to the criticaly important threat
+	- Highly Automated
+		- Reduce or remove manual response
+	- Safely enables all applications
+		- Granualar use of controllers and prevention of known and unkown cyberthreats
+- Security Operating System
+	- Cortex
+		- Cortex Data Lake
+		- Cortex XDR		
+			- Apps can be created and deveolped on a common application framework (Cortex) to reapidly build and deliver cloud-based security serives with no additional infrastructure or on-premises hardware changes. Apps are delivered from the cloud to extend the capabilities of the platform, including the ability to effortlessly collaborate between diffrenet apps, share threat context, and intelligence, and drive automated response and enforcement. 
+- Network Security
+	- Palo Alto Network Security Operating Platform firewalls are designed to safely enable applications and prevent modern threats. The firewall can identify all network traffic based on applications, user, content, and devices, and lets you express your business policies in the form of easy-to-understand security rules.
+- Advanced Endpoint Protection
+	- Traps Advanced Endpoint Protection provided multi-method prevention, a proprietary combination of malware and exploit prevention methods that preemptively block both known and unknown threats directly on the endpoint. 
+- Cloud Security
+	- The Palo Alto Networks VM_Series firewall is a virtualized form of the Palo Alto Networks Security Operating Platform firewall. The VM-Series   firewalls are designed for use in a virtualized or cloud environment to identify all network traffic based on applications, users, content, and devices.
+- Additional Palo Alto Networks Products
+	- Panorama
+	- Aperture
+	- GlobalProtect
+	- AutoFocus
+	- MindMeld
+
+#### Next-Generation Firewall Architecture
+
+- Palo Alto Networks Single-Pass Architecture
+	- Traditional Firewalls
+		- Identify applications only by protocol and port number
+	- Palo Alto Firewalls uses packet inspection and a library of applications signatures to
+		- Distinguish between applications, that have the same protocol and port
+		- Identify potentially malicious applications that use non-standard ports
+	- Single Pass:
+		- Operations per packet
+		- One single policy (per type)
+
+		| Name     | Resposibility     | Addtional info | 
+		| :------------- | :------------- | :------------- |
+		| Policy Engine       |        |
+		| Content-ID | Data Filtering | Content scanning: threats, URLS, confidentiual Data |
+		| | URL Filtering |
+		| | Real-time Threat Prevention |
+		| App-ID | Appliocation Protocol Decoding | Traffic classification with APp-ID technology | 
+		| | Application Protocol Detection and Decryption|
+		| | Application Signatures|
+		| | Heuristics |
+		| User-ID | | User or group mapping |
+		| L2/L3 Networking, HA, Config Management, Reporting | |
+		
+		- Parallel Processing:
+			- Function-specific parallel processing hardware engines
+			- Sperate data and control planes
+	- Palo Alto Networks Firewall Architecture
+		
+		| Plane     | Function     | Insite |
+		| :------------- | :------------- | :------------- |
+		| Control Plane     | Management       | configuration - logging - reporting |
+		| Data Plane | Signature Matching | exploits - virus - spyware - CC# - SSN |
+		| | Security Processing | App-ID - User-ID - URL match - policy match - SSL/IPsec - decompression |
+		| | Network Processing | flow control - MAC lookup - route lookup - QoS - NAT
+		
+#### Zero Trust Security Model
+
+- Data flows in and Open Network
+	
+	| Name     | Description     | Additional Detail |
+	| :------------- | :------------- | :------------- |
+	| Lack of Visibility       | Intenet       | If IT and Netowrk security teams have no true visibility, they cannot control the users and applications traversing the network. The lack of full visibility means that organizations are vunerable to attacks from both within the organization and from the public internet. |
+	| North-South Traffic | Traffic Entering and Leaving the network | |
+	| East-West Traffic | Internal Traffic that never leaves the gatway | |
+	
+- Data Flows Secured by Palo Alto
+	- Zero Trust
+		- An alternative security model that addresses the shortcomings of failing perimeter-centric strategies by removing the assumption to trust
+			- The need to Establish trust boundaries that effectiviely compartmentalize diffrenet segments of the internal computing enviorment
+		- Inteneded to remedy the deficiencies with perimiter centric strategies and the legacy devices and technologies used to implement them by promoting "never trust, always verify" as a guiding principal.
+			- Move security functionality closer to the diffrent pockets of resources that require protection.
+- Integrated Approach to Threat Prevention
+	
+	| | Delivery     | Expoitation | Installation | C2 | Act on Object
+	| :------------- | :------------- |
+	| App-ID       | Block high-risk applications | | | Block C2 on non-standard ports | Prevent exfiltration and lateral movement |
+	| URL Filtering | Block known malware sites | | | Block Malware, fast-flux domains | |
+	| Vulnerability | | Block the request | | | Prevent lateral movement |
+	| Anti-Spyware | | | | Block spyware, C2 traffic | |
+	| Antivirus | | Block Malware | | Prevent lateral movement |
+	| Traps | Monitor allowed processes and executables | Prevent envasions | Prevent malicious .exe from running | | |
+	| File Blocking | | | Prevent drive-by downloads | | Prevent exfiltration and lateral movement |
+	| DoS and/or Zone | | Prevent evasions | | | Prevent DoS attacks |
+	| WildFire | Identify malware | | Detect unknown malware | Detect new C2 traffic | |
+	
+#### Firewall Offerings
+
+- Physical Platforms
+	- Next-Generation Firewalls
+		- PA-220
+		- PA-200R
+		- PA-800 Series
+		- PA-3200 Series
+		- PA-5200 Series
+		- PA-7000 Series
+			- Chassi Series
+	- Panorama
+		- M-200
+		- M-500/WF-500-600
+- Virtual Firewalls
+	- Virtual Systems (vsys) are septate, logical firewall instances within a single physical Palo Alto Networks firewall
+	- Rather than use multiple firewalls, service providers can use a single pair of firewalls and enable virtual systems on them.
+	- A vsys contains:
+		- A set of physical and logical interfaces and subinterfaces
+		- Virtual routers
+		- Security zones
+	- When using a vsys you can segment
+		- Administrative access
+		- Management of all policies
+		- All objects
+		- User-ID
+		- Certificate management
+		- Server Profiles
+		- Loggin, reporting, and visibility functions
+	- Supporting Firewalls
+		- PA-3000 and up
+	- Virtual Systems Supported
+		- Each firewall has a base number of vsys, number varies by platform
+	- License required to
+		- Support multiple vsys on the PA-3x00 Series
+		- Create additional virtual systems than the base number
 
 ## PCNSE Prep
 
