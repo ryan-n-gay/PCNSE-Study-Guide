@@ -565,8 +565,61 @@
 #### Security Zones and Interfaces
 
 - Security Zones and Security Policy Rules
+  - Palo Alto Networks firewalls use the concept of security zones to secure and manage networks.
+  - Configure different firewall Security policy rules to control the traffic to and from each zone.
+  - The physical location of a zone and its traffic is irrelevant. A single zone can reside at different locations throughout an enterprise.
+  - Choose descriptive zone names, that help designate specific types of business functions, locations, or access privileges.
+  - By default, a PanOS security policy allows interzone traffic, which allows systems in the same zone to freely communicate with each other. However, interzone traffic is denied by default.
 - In-Band Network Interfaces
+  - In-Band interfaces are used to control network traffic flowing access an enterprise
+  - These interfaces are labeled in the web interfaces using the format ethernet n/n
+  - Each firewall interface supports multiple logical interfaces, called subinterfaces, in the web interface.
+  - A physical port or a subinterface can be assigned to only a single security zone. A zone can contain multiple physical or logical interfaces.
 - Interface Types and Zone Types
+  - You can use numerous methods to integrate Palo Alto Networks firewalls into your environment. Many implementations evolve and will transition from one configuration to another.
+  - PanOS software includes different zone types and interface types.
+  - Different zone and interface types can be used simultaneously on different physical firewall interfaces.
+- Creating a Security Zone (Demo)
+
+#### Tap Interfaces
+
+- Tap Interfaces Overview
+  - Enable passive monitoring of switch traffic from the SPAN or mirror port.
+  - Cannot control traffic or preform traffic shaping
+  - If the span or mirror port passes encrypted traffic, the TAP interface support only SSL inbound decryption
+  - Even though a firewall does not block traffic flowing into a Tap interface, the firewall still can thoroughly identify the traffic.
+- Configuring a Tap Interface (Demo)
+
+#### Virtual Wire Interfaces
+
+- Virtual Wire Interfaces Overview
+  - A Virtual Wire deployment binds two firewall interfaces together.
+  - A Virtual Wire configuration typically is used when no switching or routing is required. No configuration changes are required for adjacent network devices.
+  - A Virtual Wire configuration is defined in two steps:
+    - Create the Virtual Wire object
+    - Configure the Virtual Wire interface
+  - Network traffic flows through a firewall in a virtual wire, which means that the firewall can examine, traffic shape, and block traffic.
+- Configuring a Virtual Wire Interface (Demo)
+- Virtual Wire Subinterfaces
+  - Read and process traffic based on:
+    - VLAN tags (1-4094)
+    - IP classifiers (untagged traffic, source IP)
+    - VLAN tags and IP classifiers (source IP)
+  - An IP classifier can be a specific address, a range of addresses, or a subnet address.
+- Configuring a Virtual Wire Subinterface (Demo)
+  - Any VLAN tag assigned to the subinterface cannot be used by the Virtual Wire object used by the parent interfaces.
+
+#### Layer 2 Interfaces
+
+#### Layer 3 Interfaces
+
+#### Virtual Routers
+
+#### VLAN Interfaces
+
+#### Loopback Interfaces
+
+#### Policy-Based Forwarding
 
 ## PCNSE Prep
 
