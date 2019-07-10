@@ -61,7 +61,7 @@
 - Administrative roles
 - Authentication methodologies
 - AutoFocus integration
-- MFA enablement and use
+- MFA entablement and use
 - Wildfire concepts
 
 ## Firewall 9.0 Essentials: Configuration and Management (EDU-110)
@@ -200,12 +200,12 @@
   - Highly Automated
     - Reduce or remove manual response
   - Safely enables all applications
-    - Granualar use of controllers and prevention of known and unkown cyberthreats
+    - Granular use of controllers and prevention of known and unknown cyber threats
 - Security Operating System
   - Cortex
     - Cortex Data Lake
     - Cortex XDR
-      - Apps can be created and developed on a common application framework (Cortex) to rapidly build and deliver cloud-based security serives with no additional infrastructure or on-premises hardware changes. Apps are delivered from the cloud to extend the capabilities of the platform, including the ability to effortlessly collaborate between different apps, share threat context, and intelligence, and drive automated response and enforcement.
+      - Apps can be created and developed on a common application framework (Cortex) to rapidly build and deliver cloud-based security services with no additional infrastructure or on-premises hardware changes. Apps are delivered from the cloud to extend the capabilities of the platform, including the ability to effortlessly collaborate between different apps, share threat context, and intelligence, and drive automated response and enforcement.
 - Network Security
   - Palo Alto Network Security Operating Platform firewalls are designed to safely enable applications and prevent modern threats. The firewall can identify all network traffic based on applications, user, content, and devices, and lets you express your business policies in the form of easy-to-understand security rules.
 - Advanced Endpoint Protection
@@ -246,10 +246,10 @@
 
     - Parallel Processing:
       - Function-specific parallel processing hardware engines
-      - Sperate data and control planes
+      - Separate data and control planes
   - Palo Alto Networks Firewall Architecture
 
-    | Plane     | Function     | Insite |
+    | Plane     | Function     | Incite |
     | :------------- | :------------- | :------------- |
     | Control Plane     | Management       | configuration - logging - reporting |
     | Data Plane | Signature Matching | exploits - virus - spyware - CC# - SSN |
@@ -274,8 +274,8 @@
       - Move security functionality closer to the different pockets of resources that require protection.
 - Integrated Approach to Threat Prevention
   
-  | | Delivery     | Expoitation | Installation | C2 | Act on Object
-  | :------------- | :------------- |
+  | | Delivery     | Exploitation | Installation | C2 | Act on Object
+  | :------------- | :------------- | --- | --- | --- | --- |
   | App-ID       | Block high-risk applications | | | Block C2 on non-standard ports | Prevent exfiltration and lateral movement |
   | URL Filtering | Block known malware sites | | | Block Malware, fast-flux domains | |
   | Vulnerability | | Block the request | | | Prevent lateral movement |
@@ -470,13 +470,13 @@
       - **Saved candidate configuration** to save the configuration to memory. If edits are made and **Save candidate configuration** is clicked again, the configuration that is saved in memory is overwritten. If the firewall is rebooted before the candidate config is saved, it will no survive a reboot as it is stored in volatile memory
       - **Load named configuration snapshot** to replace the current candidate configuration in an XML file
   - Admin-Level Commit
-    - Became avaible as of version 8.0, and allows administrators to only commit their changes to the firewall
+    - Became available as of version 8.0, and allows administrators to only commit their changes to the firewall
     - Simplifies your configuration workflow because you do not have to coordinate commits with other administrators
     - Prior to 8.0
       - Commit operations permitted all staged changes
   - Performing a Per-Admin Commit
     - Commit just your changes, or yours and other admins changes.
-    - You can select just your admin account, or your admin account and another admins account without commiting all changes.
+    - You can select just your admin account, or your admin account and another admins account without committing all changes.
   - Admin-Level Save and Revert
     - Every Version
       - Save your current progress and continue later without having to commit a partially completed configuration change
@@ -501,7 +501,7 @@
       - Register with Palo Alto > Activate Support License > Activate the license for each purchased subscription purchased
       - Before you can retrieve a license, the firewall must be configured with an IP address, netmask, default gateway, and DNS server IP addresses
     - Dynamic Updates
-      - Which updates are avaible
+      - Which updates are available
         - Antivirus, spyware, new malicious domains and URLs, and new application signatures
       - How can updates be downloaded
         - Directly from Palo Alto
@@ -574,7 +574,7 @@
   - In-Band interfaces are used to control network traffic flowing access an enterprise
   - These interfaces are labeled in the web interfaces using the format ethernet n/n
   - Each firewall interface supports multiple logical interfaces, called subinterfaces, in the web interface.
-  - A physical port or a subinterface can be assigned to only a single security zone. A zone can contain multiple physical or logical interfaces.
+  - A physical port or a sub interface can be assigned to only a single security zone. A zone can contain multiple physical or logical interfaces.
 - Interface Types and Zone Types
   - You can use numerous methods to integrate Palo Alto Networks firewalls into your environment. Many implementations evolve and will transition from one configuration to another.
   - PanOS software includes different zone types and interface types.
@@ -606,20 +606,104 @@
     - IP classifiers (untagged traffic, source IP)
     - VLAN tags and IP classifiers (source IP)
   - An IP classifier can be a specific address, a range of addresses, or a subnet address.
-- Configuring a Virtual Wire Subinterface (Demo)
-  - Any VLAN tag assigned to the subinterface cannot be used by the Virtual Wire object used by the parent interfaces.
+- Configuring a Virtual Wire Sub interface (Demo)
+  - Any VLAN tag assigned to the sub interface cannot be used by the Virtual Wire object used by the parent interfaces.
 
 #### Layer 2 Interfaces
 
+- Layer 2 Interfaces Overview
+  - Provides switching between two or more interfaces through a VLAN object
+  - A layer 2 configuration is defined in two steps
+    - Creating the VLAN object
+    - Configure the Layer 2 interfaces that the VLAN object connects
+  - The firewall is not a participant in the STP process. It only Passes STP
+  - Configure the firewall to perform App-ID, Content-ID, User-ID, SSL decryption, and QoS in a Layer 2 deployment.
+  - Typically used when no routing is needed.
+- Layer 2 Sub interfaces
+  - Assign sub interfaces to zones
+  - VLAN traffic isolated by sub interface:
+    - Need route between VLANs
+    - Security policy blocks interzone traffic by default
+  - Useful configuration for multi-tenant networks
+
 #### Layer 3 Interfaces
+
+- Layer 3 Interface Overview
+  - A Layer 3 deployment enables routing traffic between multiple Layer 3 interfaces
+  - You must assign an IP address to a layer 3 interface
+  - A Layer 3 deployment can require network reconfiguration in the enterprise
+  - Network traffic can flow through a firewall between Layer 3 interfaces, which means that the firewall can examine, traffic shape, and block traffic.
+- IPv4 and IPv6
+  - Layer 3 interfaces support IPv4 and IPv6
+  - To support IPv6 addresses, you must enable IPv6 on the firewall.
+- Configuring a Layer 3 Interface (Demo)
+- Interface Management Profiles (Demo)
+- Layer 3 Sub interface
+  - Traffic in each VLAN is isolated:
+    - Need a virtual router to connect VLANs
+    - Security policy blocks interzone traffic by default
+  - Configure appropriate Security policy rules to allow traffic to flow between different security zones.
+- Configuring a Layer 3 Sub interface (Demo)
 
 #### Virtual Routers
 
+- Virtual Router Overview
+  - The firewall uses a virtual router to obtain routes to other subnets.
+  - Manually define one or more static routes or configure a virtual router to participate in one or more dynamic routing protocols
+  - Support dynamic routing protocols:
+    - BGPv4
+    - OSPFv2
+    - OSPFv3
+    - RIPv2
+  - Supported multicast routing protocols:
+    - PIM-SM
+    - PIM-SSM
+  - Virtual Routers can be linked so that traffic can be routed between them.
+- Virtual Router General Settings (Demo)
+- Multiple Static Default Routes
+  - Can configure multiple default routes
+  - Each default route is assigned a different metric, with the lowest metric used to determine the route that is actively used.
+  - Path monitoring determines if routes are usable
+  - If path monitoring determines that a route no longer is working, the firewall switches to the static route with the higher metric
+    - Prior to PanOS 8.0 only the failure of a physical firewall interface would cause a failover between two static routes
+  - Path monitoring continues to monitor all paths, even after failure
+  - Path monitoring detects that the static default route with the lower metric is available, which will cause the firewall to switch back to that route path
+- Static Route Path Monitoring (Demo)
+- Troubleshooting Routing (Demo)
+
 #### VLAN Interfaces
+
+- VLAN Interfaces Overview
+  - Are assigned an IP address
+  - Connect Layer 2 to Layer 3
+- Configuring a VLAN interface (Demo)
 
 #### Loopback Interfaces
 
+- Loopback Interfaces Overview
+  - Logical interface with an IP address
+  - Behaves like a host interface
+  - Used to provide access to firewall services
+- Configuring a Loopback Interface (Demo)
+
 #### Policy-Based Forwarding
+
+- Policy-Based Forwarding Overview
+  - Policy-based forwarding, or PBF rules, allow traffic to take an alternative path from the next hop specified in the route table, and typically are used to specify an egress interface for security or performance reasons.
+  - Specify egress interface for:
+    - Bandwidth-sensitive applications
+    - Unencrypted applications
+  - Specify egress interface for
+    - Non-bandwidth-sensitive application
+    - Encrypted applications
+  - PBF does not apply to traffic that originates from the firewall itself
+- PBF Rules
+  - PBF rules enable you to specify match criteria such as the source zone or interface, source user, source or destination IP address, application, or destination port to match traffic and specify an outgoing interface
+  - Path monitoring feature to verify connectivity to and external IP address
+  - Enables the firewall to direct traffic through and alternate egress interface
+  - Firewall uses ICMP pings to verify the specified IP address is reachable
+  - Consider enabling User-ID technology now for more granular control
+- Configuring PBF (Demo)
 
 ## PCNSE Prep
 
