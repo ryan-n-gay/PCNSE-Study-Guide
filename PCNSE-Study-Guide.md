@@ -705,6 +705,140 @@
   - Consider enabling User-ID technology now for more granular control
 - Configuring PBF (Demo)
 
+### Firewall 9.0: Security and NAT Policies
+
+#### Module Objectives
+
+- Display and manage security policy rules
+- Describe the differences between implicit and explicit rules
+- Create a Security Policy
+- Describe the differences between source and destination NAT
+- Configure source NAT
+- Configure destination NAT port forwarding
+
+#### Security Policy Fundamental Concepts
+
+- Controlling Network Traffic
+  - Multiple match criteria avaible to control network traffic
+  - This traffic matching does not include traffic originating from the management interface of the firewall
+  - Define Security policy rules on the firewall using various criteria such as zones, applications, IP addresses, ports, users, and host information profiles (HIP) Profiles
+  - Basic Criteria
+    - Source zone
+    - Destination zone
+  - Granular Criteria
+    - Source address
+    - Destination address
+    - Port
+    - Application
+    - URL category
+    - Source users
+    - HIP Profile
+- Sessions and Flows
+  - The Palo Alto Networks firewall is a stateful firewall
+    - All traffic passing through the firewall is matched against a session
+    - Each session is then matched against a Security policy rule
+    - Each session is identified by a six tuple consisting of:
+      - Source and destination IP address
+      - Source and destination port number: For non-UDP/TCP traffic, different protocol fields are used
+      - Protocol
+      - Source security zone
+    - a Session can consist of two flows
+      - Client to server (c2s) - must enable using rule
+      - Server to client (s2c) - return traffic allowed
+    - The endpoint where traffic initiates always is the client, and the endpoint where traffic is destined is the server. When you define Security policy rules, consider only the c2s flow direction.
+- Displaying and Managing Security Policy Rules (Demo)
+- Security Policy Rule Types
+  - Three types of rules can be defined in a s Security policy
+  - Each rule type specifies whether a rule applies to traffic within a zone, between zones, or both
+  - Intrazone
+    - an intrazone rule applies to all matching traffic within the specified source zones. You cannot specify a destination zone for an intrazone rule
+  - Interzone
+    - An interzone rule applies to all matching traffic between the specified source and destination
+  - Universal
+    - A universal rule applies to all matching interzone traffic in the specified source and destination zones
+- Implicit and Explicit Rules
+  - The firewall implicitly allows intrazone traffic and implicitly denies interzone traffic
+  - Create explicit rules to control all other traffic
+  - The interzone-default rule eliminated the need to create a rule that blocks all traffic not explicitly allowed by a security policy
+  - Explicit rule; by default traffic is logged
+  - Implicit rules; by default traffic is not logged
+    - Palo Alto Networks recommends that you log all traffic and change the default behavior
+  - Placement of an explicit "deny-all" rule at the end of your administrator-defined policy rules but before the predefined intrazone-default rule will deny all intrazone traffic. This explicit "deny-all" rule can disrupt normal application traffic flowing within you networks
+- Enabling Intrazone and Interzone logging (Demo)
+- Security Policy Match
+  - Security policy rules are evaluated for a match from top to bottom
+  - Policy rules are unidirectional
+  - Source zone(s) to destination zone(s)
+    - the replies to the client are allowed as part of the policy.
+  - If traffic is intended to be initiated in both directions, two policy rules are recommended
+  - When configuring Security policy rules, minimize the use of any in the columns, when possible. Reduction of the use of the word any reduces the number of unnecessary Security policy lookups by the firewall.
+- Policy Rule Hit Count
+  - Identify and Determine
+    - Identify rules that are used frequently and determine which rules are used and should be removed
+  - Validate and Monitor
+    - Validate rule additions or changes, and to monitor the time frame of when a specific rule was used
+  - Hit Count Data
+    - Includes the number of traffic matches, the timestamps, the number of applications seen, and the number of days with no new applications seen
+  - The rule hit count data can be reset to validate an existing rule or to gauge rule use within a given period of time
+  - The policy rule hit count data also is available through the CLI and API
+- Rule Shadowing (Example)
+  - The Commit Status window warns when one rule shadows one or more other rules
+
+#### Secure Policy Administration
+
+- Creating Security Policy Rules (Demo)
+- Scheduling Security Policy Rule (Demo)
+- Managing the Security Policy Ruleset (Demo)
+- Universally Unique Identifiers (UUID)
+  - Created and assigned to a security policy rule when the rule is created
+  - Provides a complete audit trail that captures the entire operational history of a rule
+  - Includes when a rule was created, and who made the most recent change to the rule
+    - 9.0 Only
+  - Standardizes the tracking of policy modification
+- Finding Unused Security Policy Rules
+  - Remove unused rules to:
+    - Increase firewall operational efficiency
+    - Simplify rule management
+    - Firewall tracks rules unused since the last time the data plane restarted
+- Rule Usage Filter (Demo)
+- Address Objects (Demo)
+- Tags (Demo)
+- Tag-Based Rule groups
+  - PanOS 9.0 replaces the tag browser with the ability to assign rules to tag groups
+    - Assign rules to tag groups
+    - View the rulebase as a tag group to visually group rules based on the tagging structure created
+    - Preform operational procedures such as adding, deleting, or moving the rules
+    - Rule tag groups are displayed in the same order as the rules in the rulebase
+    - Before assigning a group tag to a rule, first create the tag assign it to the Security policy rule
+- Creating a New Service Definition (Demo)
+- Using Global Find
+  - Search the candidate configuration and content databases on a firewall for a particular string
+    - IP Address
+    - Object Name
+    - Policy rule name
+    - Threat ID
+    - Application name
+    - This is launched from the search link, or context aware menu
+  - Search results are grouped by category
+  - Does not search
+    - Dynamic content such as logs, address ranges, or allocated DHCP addresses
+    - Individual username or group names identified by User-ID
+  - In general, you can search only content that the firewall writes to the candidate configuration
+  - Example use cases for the Global Find feature are:
+    - Find all objects with a given tag
+    - See where a given IP address is used in the configuration
+    - Find a policy that includes a username or user group
+    - See any place a given username appears in the config
+    - Find out if an application is used in a policy, application group, application filter, or a report query
+    - Find a ticket number that was added to a comment in a policy or on another object
+- Rule Changes Archive
+  - With release of version 9.0
+    - Rule Changes Archive can track all of the changes made to the Security Policy rules
+- Test Policy Functionality
+  - With the release of Pan-OS 9.0
+    - You can test policy rules and managed device configurations to ensure that candidate configurations appropriately secure your network and maintain connectivity to important network resources.
+- Viewing the Traffic Log (Demo)
+
 ## PCNSE Prep
 
 - Authentication & Authorization for Device Administration
