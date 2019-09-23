@@ -839,6 +839,137 @@
     - You can test policy rules and managed device configurations to ensure that candidate configurations appropriately secure your network and maintain connectivity to important network resources.
 - Viewing the Traffic Log (Demo)
 
+#### Network Address Translation
+
+- Flow Logic of the Next-Generation Firewall (Infographic)
+- NAT Types
+  - Source NAT
+    - Source NAT commonly is used for private (internal) users to access the public internet (outbound traffic)
+  - Destination NAT
+    - Destination NAT often is used to provide host on the public(external) network access to private (internal) servers
+  - For both source and destination NAT, the firewall maintains the mapping of pre-NAT to post-NAT IP addresses
+
+#### Source NAT Configuration
+
+- Source NAT
+  - Source NAT translate an original source IP address to an alternate source IP address
+  - Source NAT is used to allow host devices configure with a private IP address to send and receive traffic on the internet
+- Source NAT Types
+  - Source NAT types provide that administrator different options for setting the size and nature of the translated source address pool.
+  - The firewall supports three ways of provisioning a translated source address pool
+    - Static IP
+      - 1-to1 fixed translations
+      - Changes the source IP address while leaving the source port unchanged
+      - Supports the implicit bidirectional rule feature
+    - Dynamic IP
+      - 1-to-1 translations of a source IP address only (no port number)
+      - Private source address translates to the next available address in the range
+    - Dynamic IP and Port (DIPP)
+      - Allows multiple clients to use the same public addresses with different source port numbers
+      - The assigned address can be set to the interface address or to a translated address
+- Source NAT (Demo)
+- DIPP NAT Oversubscription
+  - The TCP protocol recognizes a maximum of about 64,000 port numbers
+    - (16 herder bits for the source ports yields 65,536 total - 1,024 well known = 64,512 available ports)
+  - On some platforms, the PanOS DIPP NAT implementation supports oversubscription
+    - Oversubscription allows the reuse of port numbers by using destination IP address as an additional NAT session identifier
+  - The NAT oversubscription rate is configurable up to the maximum rate supported by the platform.
+
+#### Destination NAT Configuration
+
+- Destination NAT
+  - Destination NAT translate an original destination IP address to an alternate destination IP address
+- Destination NAT Attributes
+  - Destination NAT provides the administrator options for provisioning public access to servers and services within their network
+    - Static IP mapping with optional port forwarding
+      - 1-to-1 fixed translation
+      - Enabled by Static Source NAT with the Bi-directional option set
+      - Changes the destination IP address while leaving the destination port unchanged
+- Destination NAT and Security Policies (Demo)
+- Dynamic IP Address Support for Destination NAT
+  - In PanOS version 8.1 Destination NAT has been enhanced to translate the original Destination address to a destination host which is configured to pull its IP via DHCP
+  - Translated address can be an FQDN, address object, or address group
+  - Translates original IP address to destination host with a DHCP-assigned IP
+    - Set translation type to Dynamic IP
+  - Each FQDN can support up to 32 IPv4 addresses and 32 IPv6 addresses
+- Configuring Destination NAT
+  - Destination NAT uses the Original Packet tab to define the source and destination zones of the packet that the firewall will translate and specify the destination interface and type of service
+- Destination NAT Port Forwarding (Demo)
+
+### Firewall 9.0: App-ID
+
+#### Module Objectives
+
+- After you complete this module, you should be able to:
+  - Define application identification
+  - Describe the four major technologies to help identify applications
+  - Configure application filters and application groups
+  - Detect unidentified applications traversing the firewall
+  - Configure scheduling of updates to APP-ID
+
+#### Application Identification (App-ID) Overview
+
+- What is an Application
+  - An application is a specific program or feature whose communication can be labeled, monitored, and controlled
+  - Applications include business tools and services that must be allowed, and entertainment or personal services that might need to be blocked
+- What is App-ID
+  - App-ID uses multiple identification  mechanisms to determine the exact identity of applications traversing the firewall
+  - Accurate traffic classification is the primary function of any firewall
+  - Security rules within a Palo Alto Networks firewall can specify application to allow or block
+  - Traditional firewalls classify traffic by port and protocol
+  - Today's applications can easily bypass a port-based firewall by hopping ports by:
+    - Using SSL and SSH encrypted traffic
+    - Sneaking across port 80
+    - Using non-standard ports
+  - App-ID is the Palo Alto Networks traffic classification mechanism that addresses the traffic classifications limitations that plague traditional firewalls
+  - Examples
+    - Port-based security rule
+      - Allows any traffic from the private zone to the public zone as long as it is going to ports 20 and 21
+    - Application-based security rule
+      - Allows only FTP traffic from the private zone to the public zone that is going to ports 20 and 21
+- Port-Based Versus Next-Generation Firewalls
+  - Traditional Firewalls
+    - Firewall Rule : ALLOW Port 53
+    - Packet on port 53: Allow
+    - Visibility: Port 53 allowed
+  - Palo Alto Networks Firewall with App-ID
+    - Firewall RuleA: ALLOW DNS
+    - DNS = DNS: Allow
+    - BitTorrent /= DNS: Deny
+    - Visibility: BitTorrent detected and blocked
+- Zero-Day Malware: IPS Versus App-ID (Example)
+- App-ID and UDP
+  - A Palo Alto Networks firewall examining UDP packets often must examine only a single UDP packet to identify the application
+    - The Lightweight User Datagram Protocol (UDP-Lite) is very similar to UDP, but it also can serve applications in error-prone network environments that prefer to have partially damaged payloads delivered rather than discarded
+- App-ID and TCP
+  - SYN
+    - Src address and Dst address
+    - Src port and Dst port
+  - SYN,AWK
+  - ACK
+  - GET
+  - Application data
+- Identifying Applications
+  - Palo Alto Networks App-ID uses four major technologies to help identify applications
+    - Application Signatures
+      - A database of application signatures updated as part of the firewall content updates
+    - Unknown Protocol Decoder
+      - An App-ID heuristics engine used to look at patterns of communication. It attempts to identify the application based on its network behavior
+    - Known Protocol Decoder
+      - A set of application decoders that understand the syntax and commands of common applications
+    - Protocol Decryption
+      - SSL and SSH decryption capabilities
+- App-ID Operations (Infographic)
+
+#### Using App-ID in a Security Policy
+
+- Application Shifts
+  - Network traffic can shift from one application to another during a session
+- Dependent Applications (Example)
+  - Network traffic can shift from one dependent application to another during the lifetime of a session
+  - When you create a policy to allow dependent applications, you also ensure that the firewall allows the other applications on which the application depends.
+- Determining Application (Demo)
+
 ## PCNSE Prep
 
 - Authentication & Authorization for Device Administration
